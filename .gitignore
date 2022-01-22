@@ -1,7 +1,2 @@
-/XilinxISE/*
-!/XilinxISE/vsource/*.v
-!/XilinxISE/vtest/*.v
-!/XilinxISE/iseconfig/
-!/*.gise
-!/*.xise
-
+/*
+!src/

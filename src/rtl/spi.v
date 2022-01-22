@@ -137,26 +137,28 @@ always @(posedge clk or negedge rst) begin
     if(!rst) begin
         bit_counter <= 0;
     end
-    if(state == STATE_TRANSFER) begin
-        if(CPHA == 0) begin
-            if(spi_clk_falling_edge) begin
-                bit_counter <= bit_counter + 1'b1;
+    else begin
+        if(state == STATE_TRANSFER) begin
+            if(CPHA == 0) begin
+                if(spi_clk_falling_edge) begin
+                    bit_counter <= bit_counter + 1'b1;
+                end
+                else begin
+                    bit_counter <= bit_counter;
+                end
             end
             else begin
-                bit_counter <= bit_counter;
+                if(spi_clk_rising_edge) begin
+                    bit_counter <= bit_counter + 1'b1;
+                end
+                else begin
+                    bit_counter <= bit_counter;
+                end
             end
         end
         else begin
-            if(spi_clk_rising_edge) begin
-                bit_counter <= bit_counter + 1'b1;
-            end
-            else begin
-                bit_counter <= bit_counter;
-            end
+            bit_counter <= 4'b0;
         end
-    end
-    else begin
-        bit_counter <= 0;
     end
 end
 
